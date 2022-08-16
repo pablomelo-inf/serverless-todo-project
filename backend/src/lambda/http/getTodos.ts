@@ -3,7 +3,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 
-import { getTodosForUser as getTodosForUser } from '../../businessLogic/todos'
+import { getTodosForUser as getTodosForUser } from '../../helpers/todos'
 import { getUserId } from '../utils';
 import { createLogger } from '../../utils/logger'
 
@@ -20,10 +20,7 @@ export const handler = middy(
 
   if (Array.isArray(result.items) && result.items.length > 0) {
     return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
+      statusCode: 200,     
       body: JSON.stringify({
         items: result.items
       })
@@ -32,9 +29,6 @@ export const handler = middy(
 
   return {
     statusCode: 400,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
     body: 'There is no todos found for this user'
   }
 })
