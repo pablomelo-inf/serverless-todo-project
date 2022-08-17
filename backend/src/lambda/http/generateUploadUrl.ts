@@ -5,7 +5,7 @@ import * as middy from 'middy'
 import { cors, httpErrorHandler } from 'middy/middlewares'
 import * as AWS  from 'aws-sdk'
 
-import { createAttachmentPresignedUrl } from '../../helpers/todos'
+import { createAttachmentPresignedUrl } from '../../businessLogic/todos'
 import { getUserId } from '../utils'
 import { createLogger } from '../../utils/logger'
 

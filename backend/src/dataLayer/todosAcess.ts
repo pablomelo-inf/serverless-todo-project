@@ -1,6 +1,9 @@
 import * as AWS  from 'aws-sdk';
 import {DocumentClient, GetItemOutput} from 'aws-sdk/clients/dynamodb';
 
+const AWSXRay = require('aws-xray-sdk')
+const XAWS = AWSXRay.captureAWS(AWS)
+
 import { TodoItem } from '../models/TodoItem'
 import { TodosResponse } from '../models/TodoItemsResponse'
 import {UpdateTodoRequest} from '../requests/UpdateTodoRequest';
@@ -8,7 +11,7 @@ import {UpdateTodoRequest} from '../requests/UpdateTodoRequest';
 
 export class TodoAccess {
   constructor(
-    private readonly docClient: DocumentClient = new AWS.DynamoDB.DocumentClient(),
+    private readonly docClient: DocumentClient = new XAWS.DynamoDB.DocumentClient(),
     private readonly todosTable = process.env.TODOS_TABLE,   
     private readonly todoIdIndex = process.env.TODO_ID_INDEX
   ) {}

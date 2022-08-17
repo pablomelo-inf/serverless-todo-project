@@ -4,7 +4,7 @@ import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
 import { createLogger } from '../../utils/logger'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
-import { createTodo } from '../../helpers/todos'
+import { createTodo } from '../../businessLogic/todos'
 import { getUserId } from '../utils'
 
 const logger = createLogger('createTodoHandler')
@@ -20,12 +20,12 @@ export const handler = middy(
       logger.info('create todo ini..', event)
       logger.info('create new todo', newTodo)
 
-      const newItemTodo = await createTodo( newTodo, userId)
+      const item = await createTodo( newTodo, userId)
   
       return{
         statusCode: 201,
         body: JSON.stringify({
-          newItemTodo
+          item
         })
       }
     }
